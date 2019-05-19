@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Models;
 using DAL.Repositories;
 using DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
@@ -20,7 +22,8 @@ namespace DAL
         ICustomerRepository _customers;
         IProductRepository _products;
         IOrdersRepository _orders;
-
+        ISvcRepository _svcs;
+        
 
 
         public UnitOfWork(ApplicationDbContext context)
@@ -29,6 +32,13 @@ namespace DAL
         }
 
 
+        public DbSet<ApplicationUser> Users
+        {
+            get
+            {
+                return _context.Users;
+            }
+        }
 
         public ICustomerRepository Customers
         {
@@ -67,8 +77,18 @@ namespace DAL
             }
         }
 
+        public ISvcRepository  Svcs
+        {
+            get
+            {
+                if (_svcs == null)
+                    _svcs = new SvcRepository(_context);
 
+                return _svcs;
+            }
+        }
 
+        IApplicationUserRepository IUnitOfWork.Users => throw new NotImplementedException();
 
         public int SaveChanges()
         {

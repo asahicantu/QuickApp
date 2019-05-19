@@ -24,6 +24,7 @@ namespace DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Svc> Svcs { get; set; }
 
 
 
@@ -69,7 +70,52 @@ namespace DAL
             builder.Entity<OrderDetail>().ToTable($"App{nameof(this.OrderDetails)}");
             builder.Entity<OrderDetail>().Property(p => p.UnitPrice).HasColumnType(priceDecimalType);
             builder.Entity<OrderDetail>().Property(p => p.Discount).HasColumnType(priceDecimalType);
-        }
+
+
+
+
+            builder.Entity<Svc>(e =>
+            {
+                e.HasKey(c => new { c.Id });
+                e.Property(p => p.Id).IsRequired(true);
+                e.Property(p => p.DomainId).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.AccountId).HasMaxLength(250).IsRequired(false);
+
+                e.Property(p => p.ServiceDeliveryManager).HasMaxLength(20).IsRequired(false);
+                e.Property(p => p.Country).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.ServiceDeliveryManager).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.AccountManager).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.AccountManager).HasMaxLength(20).IsRequired(false);
+                //e.Property(p => p.Date).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.QuoteFTL).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.PO).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.Client).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.Field).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.Well).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.AU).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.AC).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.Portfolio).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.SubPortfolio).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.MasterCode).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.Currency).HasMaxLength(5).IsRequired(false);
+                e.Property(p => p.FXRate).HasColumnType("NUMERIC(6,2)").IsRequired(false);
+                e.Property(p => p.Comment).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.TechnicalLead).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.ChangePointTask).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.ROFO).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.iMF).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.MMF).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.SentToInvoice).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.Revenue).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.InvocieNumber).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.Cost).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.CostReceived).HasColumnType("MONEY").IsRequired(false);
+                e.Property(p => p.CostType).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.GLAccount).HasMaxLength(250).IsRequired(false);
+                e.Property(p => p.CostDescription).HasMaxLength(250).IsRequired(false);
+            });
+
+            }
 
 
 

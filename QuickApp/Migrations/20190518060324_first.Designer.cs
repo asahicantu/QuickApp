@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace QuickApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190518060324_first")]
+    partial class first
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,9 +147,6 @@ namespace QuickApp.Migrations
 
                     b.Property<int>("Gender");
 
-                    b.Property<string>("LockedBy")
-                        .HasMaxLength(256);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -193,9 +192,6 @@ namespace QuickApp.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("LockedBy")
-                        .HasMaxLength(256);
-
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256);
 
@@ -223,9 +219,6 @@ namespace QuickApp.Migrations
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("LockedBy")
-                        .HasMaxLength(256);
 
                     b.Property<int>("OrderId");
 
@@ -279,9 +272,6 @@ namespace QuickApp.Migrations
 
                     b.Property<bool>("IsDiscontinued");
 
-                    b.Property<string>("LockedBy")
-                        .HasMaxLength(256);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -330,9 +320,6 @@ namespace QuickApp.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("Icon");
-
-                    b.Property<string>("LockedBy")
-                        .HasMaxLength(256);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -414,9 +401,6 @@ namespace QuickApp.Migrations
 
                     b.Property<string>("InvocieNumber")
                         .HasMaxLength(250);
-
-                    b.Property<string>("LockedBy")
-                        .HasMaxLength(256);
 
                     b.Property<decimal?>("MMF")
                         .HasColumnType("MONEY");

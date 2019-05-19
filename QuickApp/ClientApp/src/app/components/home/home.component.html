@@ -1,53 +1,64 @@
-<div class="container">
-    <header class="pageHeader">
-        <h3><i class="fa fa-tachometer fa-lg page-caption" aria-hidden="true"></i> {{'pageHeader.Dashboard' | translate}}</h3>
-    </header>
-
-    <div [@fadeInOut]>
-        <div class="row">
-            <div *ngIf="!configurations.showDashboardStatistics && !configurations.showDashboardNotifications && !configurations.showDashboardTodo && !configurations.showDashboardBanner" class="col-12 my-5">
-                <div class="card card-body bg-light">
-                    <h4 class="text-muted text-center">
-                        {{'home.NoWidgets1' | translate}} <a routerLink="/settings" fragment="preferences"><i class="fa fa-sliders"></i> {{'settings.tab.Preferences' | translate}}</a>
-                        {{'home.NoWidgets2' | translate}}
-                    </h4>
-                </div>
-            </div>
-
-            <div *ngIf="configurations.showDashboardStatistics" class="col-12 my-3">
-                <button type="button" class="close" aria-label="Close" title="Close" (click)="configurations.showDashboardStatistics = false">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="clearfix"></div>
-                <div class="card card-body bg-light">
-                    <h5 class="text-muted d-inline-block">{{'home.StatisticsTitle' | translate}}</h5>
-                    <statistics-demo></statistics-demo>
-                </div>
-            </div>
-
-            <div *ngIf="configurations.showDashboardNotifications" class="col-12 my-3">
-                <button type="button" class="close" aria-label="Close" title="Close" (click)="configurations.showDashboardNotifications = false">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="clearfix"></div>
-                <notifications-viewer></notifications-viewer>
-            </div>
-
-            <div *ngIf="configurations.showDashboardTodo" class="col-12 my-3">
-                <button type="button" class="close" aria-label="Close" title="Close" (click)="configurations.showDashboardTodo = false">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="clearfix"></div>
-                <todo-demo></todo-demo>
-            </div>
-
-            <div *ngIf="configurations.showDashboardBanner" class="col-12 my-3">
-                <button type="button" class="close" aria-label="Close" title="Close" (click)="configurations.showDashboardBanner = false">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="clearfix"></div>
-                <banner-demo></banner-demo>
-            </div>
+<div @fadeInOut class="container">
+  <header class="pageHeader">
+    <form class="form-inline">
+      <h5><i class="fa fa-tachometer fa-lg page-caption" aria-hidden="true"></i> {{'pageHeader.Dashboard' | translate}}</h5>
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control"
+                 #d="ngbDatepicker"
+                 placeholder="Enter Date Range"
+                 name="dp"
+                 [(ngModel)]="model"
+                 ngbDatepicker
+                 (dateSelect)="onDateSelection($event)"
+                 [displayMonths]="2"
+                 [dayTemplate]="rangeTemplate"
+                 [footerTemplate]="footerTemplate"
+                 [autoClose]="outside"
+                 outsideDays="hidden">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary fa fa-calendar" (click)="d.toggle()" type="button"></button>
+          </div>
         </div>
-    </div>
+        <button type="button" class="btn btn-primary" (click)="resetFilters()">Clear Filters</button>
+        <span></span>
+        <button type="button" class="btn btn-success" (click)="refreshData()">Refresh Data</button>
+        <span></span>
+        <button type="button" class="btn btn-warning">
+          <span class="badge badge-light">{{source.count()}}</span>Records
+        </button>
+      </div>
+    </form>
+
+    <ng-template #footerTemplate>
+      <hr class="my-0">
+      <!--<button class="btn btn-primary btn-sm m-2 float-left" (click)="fromDate = today;">Today</button>-->
+      <button class="btn btn-primary btn-sm m-2 float-left" (click)="d.close();fromDate=null;toDate=null;getSvc();">Clear</button>
+      <button class="btn btn-success btn-sm m-2 float-left" (click)="d.close();getSvc(fromDate,toDate)">Search</button>
+      <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close();">Close</button>
+    </ng-template>
+
+
+    <ng-template #rangeTemplate let-date let-focused="focused">
+      <span class="custom-day"
+            [class.focused]="focused"
+            [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)"
+            (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
+        {{ date.day }}
+      </span>
+    </ng-template>
+  </header>
+  <ng2-smart-table
+                   [settings]="settings"
+                   [source]="source"
+                   (create)="canCreateSvc($event)"
+                   (createConfirm)="createSvc($event)"
+                   (edit)="canEditSvc($event)"
+                   (editConfirm)="editSvc($event)"
+                   (delete)="canDeleteSvc($event)"
+                   (deleteConfirm)="deleteSvc($event)">
+
+  </ng2-smart-table>
 </div>

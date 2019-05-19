@@ -1,0 +1,15 @@
+{
+  "/api/*": {
+    "target": "https://localhost:44350",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+
+  "/connect/*": {
+    "target": "https://localhost:44350",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

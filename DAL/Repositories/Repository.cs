@@ -84,5 +84,6 @@ namespace DAL.Repositories
         {
             return _entities.ToList();
         }
+
     }
 }

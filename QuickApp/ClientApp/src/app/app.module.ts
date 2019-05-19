@@ -7,9 +7,11 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Ng2SmartTableModule } from "ngx-smart-table";
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastaModule } from 'ngx-toasta';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -18,6 +20,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ChartsModule } from 'ng2-charts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppErrorHandler } from './app-error.handler';
@@ -32,6 +36,7 @@ import { NotificationService } from './services/notification.service';
 import { NotificationEndpoint } from './services/notification-endpoint.service';
 import { AccountService } from './services/account.service';
 import { AccountEndpoint } from './services/account-endpoint.service';
+import { HomeService } from './components/home/home.service'
 
 import { EqualValidator } from './directives/equal-validator.directive';
 import { LastElementDirective } from './directives/last-element.directive';
@@ -79,6 +84,7 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
         useClass: TranslateLanguageLoader
       }
     }),
+    Ng2SmartTableModule,
     NgxDatatableModule,
     ToastaModule.forRoot(),
     TooltipModule.forRoot(),
@@ -86,7 +92,8 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    NgbModule
   ],
   declarations: [
     AppComponent,
@@ -118,6 +125,7 @@ import { RoleEditorComponent } from './components/controls/role-editor.component
     ThemeManager,
     ConfigurationService,
     AppTitleService,
+    HomeService,
     AppTranslationService,
     NotificationService,
     NotificationEndpoint,

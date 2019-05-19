@@ -16,6 +16,8 @@ export class Utilities {
   public static readonly notFoundMessageCaption = 'Not Found';
   public static readonly notFoundMessageDetail = 'The target resource cannot be found';
 
+
+
   public static cookies =
     {
       getItem: (sKey) => {
@@ -78,7 +80,7 @@ export class Utilities {
               responses.push(`${key}${this.captionAndMessageSeparator} ${responseObject[key]}`);
             } else if (responseObject[key]) {
               responses.push(responseObject[key].toString());
-                 }
+            }
           }
         }
       }
@@ -455,9 +457,33 @@ export class Utilities {
     }
   }
 
+
+  public static stringToDate(date: string, format:string, delimiter: string= "/") {
+    var formatLowerCase = format.toLowerCase();
+    var formatItems = formatLowerCase.split(delimiter);
+    var dateItems = date.split(delimiter);
+    var monthIndex = formatItems.indexOf("mm");
+    //if (monthIndex < 0) {
+    //  monthIndex = formatItems.indexOf("m");
+    //}
+    var dayIndex = formatItems.indexOf("dd");
+    //if (dayIndex < 0) {
+    //  monthIndex = formatItems.indexOf("d");
+    //}
+    var yearIndex = formatItems.indexOf("yyyy");
+
+    var year = parseInt(dateItems[yearIndex]);
+    var month = parseInt(dateItems[monthIndex]);
+    var day = parseInt(dateItems[dayIndex]);
+    console.log(date,yearIndex,monthIndex,dayIndex, year, month, day);
+    var formatedDate = new Date(year, month-1,day,0,0,0,0);
+    return formatedDate;
+  }
+
   public static printDuration(start: Date, end: Date) {
 
     start = new Date(start);
+    end = new Date(end);
     end = new Date(end);
 
     // get total seconds between the times

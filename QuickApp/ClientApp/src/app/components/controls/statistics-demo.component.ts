@@ -13,7 +13,7 @@ require('chart.js');
 
 
 @Component({
-  selector: 'statistics-demo',
+  selector: 'dashboard-svc',
   templateUrl: './statistics-demo.component.html',
   styleUrls: ['./statistics-demo.component.scss']
 })

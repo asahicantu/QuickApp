@@ -54,7 +54,8 @@ namespace DAL
 
                 await CreateUserAsync("admin", "tempP@ss123", "Inbuilt Administrator", "admin@ebenmonney.com", "+1 (123) 000-0000", new string[] { adminRoleName });
                 await CreateUserAsync("user", "tempP@ss123", "Inbuilt Standard User", "user@ebenmonney.com", "+1 (123) 000-0001", new string[] { userRoleName });
-
+                await CreateUserAsync("asahi", "test", "Asahi cantu", "amoreno15@slb.com", "+1 (123) 000-0001", new string[] { adminRoleName });
+                await CreateUserAsync("ricardo", "test", "Ricardo Colmenares", "rcolmenares2@slb.com", "+1 (123) 000-0001", new string[] { adminRoleName });
                 _logger.LogInformation("Inbuilt account generation completed");
             }
 
@@ -229,6 +230,17 @@ namespace DAL
 
 
             return applicationUser;
+        }
+
+        private void CreateServices()
+        {
+            for(var i = 0; i < 400; i++)
+            {
+                _context.Svcs.Add(new Svc
+                {
+
+                });
+            }
         }
     }
 }
